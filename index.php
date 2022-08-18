@@ -103,6 +103,9 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
         <a href="<?= $data["github"] ?>" class="github"><i class="bi bi-github"></i></a>
       </div>
 
+
+    
+
     </div>
   </header><!-- End Header -->
 
@@ -190,33 +193,33 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
       </div>
 
       <div class="row skills-content">
-      <div class="col-lg-6">
-        <?php
-        $count = null;
-        if ($result_hard_skils->num_rows > 0) {
-          while ($row = $result_hard_skils->fetch_assoc()) {
+        <div class="col-lg-6">
+          <?php
+          $count = null;
+          if ($result_hard_skils->num_rows > 0) {
+            while ($row = $result_hard_skils->fetch_assoc()) {
 
-        ?>
-            
-            <div class="progress">
-              <span class="skill"><?= $row["title"] ?> <i class="val"><?= $row["value"] ?></i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="<?= $row["value"] ?>" aria-valuemin="0" aria-valuemax="100"></div>
+          ?>
+
+              <div class="progress">
+                <span class="skill"><?= $row["title"] ?> <i class="val"><?= $row["value"] ?></i></span>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="<?= $row["value"] ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
               </div>
-            </div>
-            <?php
-            $count++;
-            if ($count > 2 == 0) {
-              echo "</div><div class='col-lg-6'>";
+          <?php
+              $count++;
+              if ($count > 2 == 0) {
+                echo "</div><div class='col-lg-6'>";
+              }
             }
           }
-        }
           ?>
 
 
 
 
-            </div>
+        </div>
 
       </div><!-- End Hard Skills -->
 
@@ -254,7 +257,7 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box">
-            <i class="ri-anchor-line" style="color: #b2904f;"></i>
+              <i class="ri-anchor-line" style="color: #b2904f;"></i>
               <h3>Liderança</h3>
             </div>
           </div>
@@ -739,6 +742,7 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
   </div>
 
   <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.js"></script>
   <script src="assets/vendor/purecounter/purecounter.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -749,6 +753,7 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/index.js"></script>
 
 </body>
 
