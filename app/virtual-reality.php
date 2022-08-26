@@ -159,7 +159,7 @@
     <!-- End Navbar -->
   </div>
   <div class="border-radius-xl mt-4 mx-4 position-relative" style="background-image: url('../assets/img/vr-bg.jpg') ; background-size: cover;">
-    <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+    <!-- <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
       <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
@@ -252,12 +252,12 @@
         <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
         <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
       </div>
-    </aside>
+    </aside> -->
     <main class="main-content mt-1 border-radius-lg">
       <div class="section min-vh-85 position-relative transform-scale-0 transform-scale-md-7">
         <div class="container">
-          <div class="row pt-10">
-            <div class="col-lg-1 col-md-1 pt-5 pt-lg-0 ms-lg-5 text-center">
+          <div class="row pt-8">
+            <div class="col-lg-1 col-md-1 pt-5 pt-lg-0 ms-lg-9 text-center">
               <a href="javascript:;" class="avatar avatar-md border-0 d-block mb-2" data-bs-toggle="tooltip" data-bs-placement="left" title="My Profile">
                 <img class="border-radius-lg" alt="Image placeholder" src="../assets/img/team-1.jpg">
               </a>
@@ -391,7 +391,7 @@
       </div>
     </main>
   </div>
-  <footer class="footer pt-3  ">
+  <!-- <footer class="footer pt-3  ">
     <div class="container-fluid">
       <div class="row align-items-center justify-content-lg-between">
         <div class="col-lg-6 mb-lg-0 mb-4">
@@ -422,7 +422,7 @@
         </div>
       </div>
     </div>
-  </footer>
+  </footer> -->
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
       <i class="fa fa-cog py-2"> </i>
