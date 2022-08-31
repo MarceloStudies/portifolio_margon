@@ -536,7 +536,7 @@ progress {
 
 @media (min-width: 1200px) {
   .display-1 {
-    font-size: 5rem;
+    font-size: 7rem;
   }
 }
 
@@ -24957,6 +24957,15 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.font-weight-white {
+  color: #f8f7f6 !important;
+  font-weight: 600 !important;
+}
+
+.font-white{
+  color: #f8f7f6 !important;
 }
 
 .font-weight-light {
