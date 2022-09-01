@@ -1,22 +1,60 @@
-<!--
-=========================================================
-* Argon Dashboard 2 - v2.0.4
-=========================================================
+<?php
+include '../includes/config.php';
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
+$id      = null;
+$username= null;
+$name    = null;
+$email   = null;
+$password= null;
+$city    = null;
+$state   = null;
+$country = null;
+$cep     = null;
+$birthday= null;
+$phone   = null;
+$facebook  = null;
+$youtube   = null;
+$instagram = null;
+$linkedin  = null;
+$github    = null;
+$title        = null;
+$description  = null;
+$phrase       = null;
+$degree       = null;
+$slcFreelance = null;
+$quant_Certificate = null;
+$quant_Project     = null;
+$quant_Video       = null;
 
-=========================================================
+try{
+  $SQL = "SELECT * FROM users WHERE id = 1";
+  $stmt = $conn->prepare($SQL);
+  $stmt->execute();
+  $resultUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+
+}catch (PDOException $e){
+  echo "Erro: " . $e->getMessage();
+}
+
+try{
+
+  $SQL = "SELECT * FROM `counter` WHERE id_user = 1";
+  $stmt = $conn->prepare($SQL);
+  $stmt->execute();
+  $resultCounter = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}catch (PDOException $e){
+  echo "Erro: " . $e->getMessage();
+}
+
+var_dump($resultCounter)
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
-<meta charset="utf-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
@@ -32,7 +70,7 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="../css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="../css/argon-dashboard.css?v=2.0.4"  rel="stylesheet" />
+  <link id="pagestyle" href="../css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -44,7 +82,7 @@
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
         <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Menu                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </span>
+        <span class="ms-1 font-weight-bold">Menu </span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -254,23 +292,25 @@
     <!-- End Navbar -->
     <div class="card shadow-lg mx-4 card-profile-bottom">
       <div class="card-body p-3">
-        <div class="row gx-4">
-          <div class="col-auto">
-            <div class="avatar avatar-xl position-relative">
-              <img src="../assets/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+        <form method="POST" action="../controller/ProfileController.php?action=salvar">
+          <input type="hidden" name="id" id="id" value="<?$resultUser["id"]?>">
+          <div class="row gx-4">
+            <div class="col-auto">
+              <div class="avatar avatar-xl position-relative">
+                <img src="../assets/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+              </div>
             </div>
-          </div>
-          <div class="col-auto my-auto">
-            <div class="h-100">
-              <h5 class="mb-1">
-                Sayo Kravits
-              </h5>
-              <p class="mb-0 font-weight-bold text-sm">
-                Public Relations
-              </p>
+            <div class="col-auto my-auto">
+              <div class="h-100">
+                <h5 class="mb-1">
+                  <?= $resultUser["name"] ?>
+                </h5>
+                <p class="mb-0 font-weight-bold text-sm">
+                  <?= $resultUser["title"] ?>
+                </p>
+              </div>
             </div>
-          </div>
-          <!-- <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            <!-- <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
             <div class="nav-wrapper position-relative end-0">
               <ul class="nav nav-pills nav-fill p-1" role="tablist">
                 <li class="nav-item">
@@ -294,17 +334,17 @@
               </ul>
             </div>
           </div> -->
-        </div>
+          </div>
       </div>
     </div>
     <div class="container-fluid py-4">
       <div class="row">
-        <div class="col-md-1">
+        <div class="col-md-12">
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
                 <p class="mb-0">Edit Profile</p>
-                <button class="btn btn-primary btn-sm ms-auto">Settings</button>
+                <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>
               </div>
             </div>
             <div class="card-body">
@@ -313,150 +353,164 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Username</label>
-                    <input class="form-control" type="text" value="lucky.jesse">
+                    <input class="form-control" type="text" name="username" value="<?=$resultUser["username"]?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Email address</label>
-                    <input class="form-control" type="email" value="jesse@example.com">
+                    <input class="form-control" type="email" name="email" value="<?=$resultUser["email"]?>">
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Name</label>
+                    <input class="form-control" type="text" name="name" value="<?=$resultUser["name"]?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">First name</label>
-                    <input class="form-control" type="text" value="Jesse">
+                    <label for="example-text-input" class="form-control-label">Password</label>
+                    <input class="form-control" type="password" name="password" value="">
+                  </div>
+                </div>
+              </div>
+              <hr class="horizontal dark">
+              <p class="text-uppercase text-sm">Contact Information</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">City</label>
+                    <input class="form-control" type="text" name="city" value="<?=$resultUser["city"]?>">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">State</label>
+                    <input class="form-control" type="text"  name="state" value="<?=$resultUser["state"]?>">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Country</label>
+                    <input class="form-control" type="text" name="country" value="<?=$resultUser["country"]?>">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">CEP</label>
+                    <input class="form-control" type="text" name="cep" value="<?=$resultUser["cep"]?>">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Last name</label>
-                    <input class="form-control" type="text" value="Lucky">
+                    <label for="example-text-input" class="form-control-label">Birthday</label>
+                    <input class="form-control" type="text" name="birthday" value="<?=$resultUser["birthday"]?>">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Phone</label>
+                    <input class="form-control" type="text" name="phone" value="<?=$resultUser["phone"]?>">
                   </div>
                 </div>
               </div>
               <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">Contact Information</p>
+              <p class="text-uppercase text-sm">Social Media</p>
               <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Facebook</label>
+                    <input class="form-control" type="text" name="facebook" value="<?=$resultUser["facebook"]?>">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Instagram</label>
+                    <input class="form-control" type="text" name="instagram" value="<?=$resultUser["instagram"]?>">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Youtube</label>
+                    <input class="form-control" type="text" name="youtube" value="<?=$resultUser["youtube"]?>">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">GitHub</label>
+                    <input class="form-control" type="text" name="github" value="<?=$resultUser["github"]?>">
+                  </div>
+                </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Address</label>
-                    <input class="form-control" type="text" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">City</label>
-                    <input class="form-control" type="text" value="New York">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Country</label>
-                    <input class="form-control" type="text" value="United States">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Postal code</label>
-                    <input class="form-control" type="text" value="437300">
+                    <label for="example-text-input" class="form-control-label">Linkedin</label>
+                    <input class="form-control" type="text" name="linkedin" value="<?=$resultUser["linkedin"]?>">
                   </div>
                 </div>
               </div>
               <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">About me</p>
+              <p class="text-uppercase text-sm">About</p>
               <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Title</label>
+                    <input class="form-control" type="text" name="title" value="<?=$resultUser["title"]?>">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Phrase</label>
+                    <input class="form-control" type="text" name="phrase" value="">
+                  </div>
+                </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">About me</label>
-                    <input class="form-control" type="text" value="A beautiful Dashboard for Bootstrap 5. It is Free and Open Source.">
+                    <label for="example-text-input" class="form-control-label">Description</label>
+                    <input class="form-control form-control-lg" name="description" type="text">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Degree</label>
+                    <input class="form-control" type="text" name="degree" value="<?=$resultUser["degree"]?>">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Freelance</label>
+                    <select class="form-control" name="slcFreelance" id="exampleFormControlSelect2">
+                      <option></option>
+                      <option value="Disponivel">Available</option>
+                      <option value="Indisponivel">Unavailable</option>
+                    </select>
                   </div>
                 </div>
               </div>
               <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">Contact Information</p>
+              <p class="text-uppercase text-sm">Development</p>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Address</label>
-                    <input class="form-control" type="text" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
+                    <label for="example-text-input" class="form-control-label">Certificates </label>
+                    <input class="form-control" type="number" name="quant_Certificate" value="<?=$resultCounter[1]["post"]?>" id="">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">City</label>
-                    <input class="form-control" type="text" value="New York">
+                    <label for="example-text-input" class="form-control-label">Projects</label>
+                    <input class="form-control" type="number" name="quant_Project" value="<?=$resultCounter[2]["post"]?>" id="">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Country</label>
-                    <input class="form-control" type="text" value="United States">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Postal code</label>
-                    <input class="form-control" type="text" value="437300">
+                    <label for="example-text-input" class="form-control-label">Videos</label>
+                    <input class="form-control" type="number" name="quant_Video" value="<?=$resultCounter[3]["post"]?>" id="">
                   </div>
                 </div>
               </div>
-              <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">Contact Information</p>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Address</label>
-                    <input class="form-control" type="text" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">City</label>
-                    <input class="form-control" type="text" value="New York">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Country</label>
-                    <input class="form-control" type="text" value="United States">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Postal code</label>
-                    <input class="form-control" type="text" value="437300">
-                  </div>
-                </div>
-              </div>
-              <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">Contact Information</p>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Address</label>
-                    <input class="form-control" type="text" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">City</label>
-                    <input class="form-control" type="text" value="New York">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Country</label>
-                    <input class="form-control" type="text" value="United States">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Postal code</label>
-                    <input class="form-control" type="text" value="437300">
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -517,6 +571,8 @@
           </div>
         </div> -->
       </div>
+      </form>
+
       <footer class="footer pt-3  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
@@ -622,6 +678,7 @@
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
