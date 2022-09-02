@@ -1,47 +1,140 @@
+<!--
+=========================================================
+* Argon Dashboard 2 - v2.0.4
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Curriculo</title>
-
-    <!-- Vendor CSS Files -->
-  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    Argon Dashboard 2 by Creative Tim
+  </title>
+  <?php include '../includes/inc-css.php'; ?>
 </head>
-<body>
-<div class="container">
-<form action="POST">
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</div>
 
-<!-- Vendor JS Files -->
-<script src="../assets/vendor/purecounter/purecounter.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="../assets/vendor/waypoints/noframework.waypoints.js"></script>
-<script src="../assets/vendor/php-email-form/validate.js"></script>      
+<body class="g-sidenav-show   bg-gray-100">
+  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  <? include '../includes/inc-menu.php'; ?>
+  <main class="main-content position-relative border-radius-lg ">
+    <!-- Navbar -->
+    <?php include '../includes/inc-navbar.php'; ?>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      
+      
+      
+     <?php include '../includes/footer.php'; ?>
+     <?php include '../includes/inc-js.php'; ?>
+  <script>
+    var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+    new Chart(ctx1, {
+      type: "line",
+      data: {
+        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+          label: "Mobile apps",
+          tension: 0.4,
+          borderWidth: 0,
+          pointRadius: 0,
+          borderColor: "#5e72e4",
+          backgroundColor: gradientStroke1,
+          borderWidth: 3,
+          fill: true,
+          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+          maxBarThickness: 6
+
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#fbfbfb',
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#ccc',
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+  </script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 </body>
+
 </html>

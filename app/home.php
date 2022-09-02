@@ -1,19 +1,17 @@
-<!--
-=========================================================
-* Argon Dashboard 2 - v2.0.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
-
 <?php
+
+include_once '../model/OpenWeather.php';
+use \model\OpenWeather\OpenWeather;
+
+$apiKey = '68287610773813f8347127ccedcf9d0e';
+$city = 'Silveiras';
+$country = 'BRA';
+$state = 'SP';
+
+$objOpenWeather = new OpenWeather($apiKey, $city,$state, $country);
+
+$dataClima = $objOpenWeather->getData();
+
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +23,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    Argon Dashboard 2 by Creative Tim
+    Margon - Home
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -158,7 +156,7 @@
     </nav> 
    End Navbar -->
   </div>
-  <div class="border-radius-xl mt-4 mx-4 position-relative" style="background-image: url('../assets/img/bg-home.jpeg') ; background-size: cover; width: 100% !important;">
+  <div class="border-radius-xl  position-relative" style="background-image: url('../assets/img/bg-home.jpeg') ; background-size: cover; width: 100% !important;">
     <!-- <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
       <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -254,11 +252,11 @@
       </div>
     </aside> -->
     <main class="main-content  border-radius-lg">
-      <div class="section min-vh-100 position-relative transform-scale-0 transform-scale-md-7">
+      <div class="section min-vh-100 position-relative transform-scale-0 transform-scale-md-9">
         <div class="container">
           <div class="row pt-8">
             <div class="col-lg-1 col-md-1 pt-5 pt-lg-0 ms-lg-9 text-center">
-              <a href="javascript:;" class="avatar avatar-md border-0 d-block mb-2" data-bs-toggle="tooltip" data-bs-placement="left" title="My Profile">
+              <a href="../app/profile.php" class="avatar avatar-md border-0 d-block mb-2" data-bs-toggle="tooltip" data-bs-placement="left" title="My Profile">
                 <img class="border-radius-lg" alt="Image placeholder" src="../assets/img/team-1.jpg">
               </a>
               <button class="btn btn-white border-radius-lg p-2 mt-0 mt-md-2 d-block mx-2 mx-md-0" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Home">
@@ -274,8 +272,8 @@
             <div class="col-lg-8 col-md-11">
               <div class="d-flex">
                 <div class="me-auto">
-                  <h1 class="display-1 font-weight-white mb-0">12°C</h1>
-                  <h6 class="text-uppercase mb-0 ms-1 font-white display-6">Cloudy</h6>
+                  <h1 class="display-1 font-weight-white mb-0"><?=round($dataClima['main']['temp'])?>°C</h1>
+                  <h6 class="text-uppercase mb-0 ms-1 font-white display-6"><?=$dataClima['weather'][0]['description']?></h6>
                 </div>
                 <div class="ms-auto">
                   <img class="w-50 float-end mt-md-n5" src="../assets/img/small-logos/icon-sun-cloud.png" alt="image sun">
