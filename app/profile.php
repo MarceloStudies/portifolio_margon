@@ -47,6 +47,8 @@ try{
   echo "Erro: " . $e->getMessage();
 }
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -243,13 +245,13 @@ try{
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Phrase</label>
-                    <input class="form-control" type="text" name="phrase" value="">
+                    <input class="form-control" type="text" name="phrase" value="<?=$resultUser["phrase"]?>">
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Description</label>
-                    <input class="form-control form-control-lg" name="description" type="text">
+                    <input class="form-control form-control-lg" name="description" type="text" value ="<?=$resultUser["description"]?>">
                   </div>
                 </div>
                 <div class="col-md-6">

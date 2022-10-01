@@ -31,6 +31,17 @@ $result_soft_skils = mysqli_query($con, $sql);
 $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
 
 
+$SQL = "SELECT * FROM `education` ";
+$stmt = $conn->prepare($SQL);
+$stmt->execute();
+$data_educations = $stmt->fetchAll();
+
+
+$SQL = "SELECT COUNT(id) as quant FROM education ";
+$stmt = $conn->prepare($SQL);
+$stmt->execute();
+$result_educations = $stmt->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -59,6 +70,7 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -104,7 +116,7 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
       </div>
 
 
-    
+
 
     </div>
   </header><!-- End Header -->
@@ -127,7 +139,7 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
         <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
           <h3><?= $data["title"]; ?></h3>
           <p class="fst-italic">
-            A tecnologia me deu a possibilidade de tornar o imaganirio em realidade e isto fez meus olhos brilharem!
+            <?= $data["phrase"]; ?>
           </p>
           <div class="row">
             <div class="col-lg-6">
@@ -148,12 +160,7 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
             </div>
           </div>
           <p>
-            Sou criativo, auto motivado e fascinado por inovação. Estou sempre em busca de
-            conhecimentos que me possibilitem expandir minhas habilidades como profissional e
-            como pessoa. Tenho personalidade de liderança e um excelente raciocínio lógico,
-            me levando cada vez mais a me colocar a prova e desenvolver meu mindset.
-            Habilidades interpessoais e conhecimento diversificado são meus principais
-            diferencias.
+            <?= $data["description"] ?>
 
           </p>
         </div>
@@ -375,38 +382,34 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
     <div class="container">
 
       <div class="section-title">
-        <h2>Resume</h2>
-        <p>Check My Resume</p>
+        <h2>Resumo</h2>
+        <p>Veja meu currículo</p>
       </div>
 
       <div class="row">
         <div class="col-lg-6">
-          <h3 class="resume-title">Sumary</h3>
+          <h3 class="resume-title">Resumo</h3>
           <div class="resume-item pb-0">
-            <h4>Alice Barkley</h4>
-            <p><em>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</em></p>
+            <h4>Marcelo Gonçalves</h4>
+            <p><em>Desenvolvedor Full Stack PHP, responsavel por encontrar soluções para as necessidades de todos.</em></p>
             <p>
             <ul>
-              <li>Portland par 127,Orlando, FL</li>
-              <li>(123) 456-7891</li>
-              <li>alice.barkley@example.com</li>
+              <li><?= $data["city"] ?></li>
+              <li><?= $data["phone"] ?></li>
+              <li><?= $data["website"] ?></li>
             </ul>
             </p>
           </div>
 
-          <h3 class="resume-title">Education</h3>
-          <div class="resume-item">
-            <h4>Master of Fine Arts &amp; Graphic Design</h4>
-            <h5>2015 - 2016</h5>
-            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-            <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</p>
-          </div>
-          <div class="resume-item">
-            <h4>Bachelor of Fine Arts &amp; Graphic Design</h4>
-            <h5>2010 - 2014</h5>
-            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-            <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
-          </div>
+          <h3 class="resume-title">Educação</h3>
+          <?php for ($i = 0; $i < $result_educations["quant"]; $i++) { ?>
+            <div class="resume-item">
+              <h4><?= $data_educations[$i]["name"] ?></h4>
+              <h5><?= $data_educations[$i]["since"] ?></h5>
+              <p><em><?= $data_educations[$i]["locale"] ?></em></p>
+              <p><?= $data_educations[$i]["description"] ?></p>
+            </div>
+          <?php } ?>
         </div>
         <div class="col-lg-6">
           <h3 class="resume-title">Professional Experience</h3>
@@ -452,9 +455,10 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
       </div>
 
       <div class="row">
+
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
           <div class="icon-box">
-            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+            <div class="icon"><button type="button" class="btn btn-icon" data-toggle="modal" data-target="#exampleModal"><i class="bx bxl-dribbble"></button></i></div>
             <h4><a href="">Lorem Ipsum</a></h4>
             <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
           </div>
@@ -495,12 +499,17 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
           <div class="icon-box">
             <div class="icon"><i class="bx bx-arch"></i></div>
-            <h4><a href="">Divera don</a></h4>
+
+            <h4>Divera don </button></a></h4>
             <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
           </div>
         </div>
 
       </div>
+
+
+
+
 
     </div>
   </section><!-- End Services Section -->
@@ -741,7 +750,44 @@ $data_soft_skils = mysqli_fetch_assoc($result_soft_skils);
     Designed by <a href="<?= $data["github"] ?>"><?= $data["name"] ?></a>
   </div>
 
+  <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.79) !important ;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12 ">
+                <div class="card mb-3" style="background-color: #2a2a2a !important ;">
+                  <img class="card-img-top" src="..." alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="btn btn-success">Go somewhere</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Vendor JS Files -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="assets/vendor/jquery/jquery.js"></script>
   <script src="assets/vendor/purecounter/purecounter.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
