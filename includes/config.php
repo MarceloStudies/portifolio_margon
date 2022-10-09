@@ -1,7 +1,7 @@
 
 <?php 
 $db_host = "localhost";
-$db_name = "portifolio_marcelo";
+$db_name = "portifolio_margon";
 $db_pass = "";
 $db_user = "root";
 
