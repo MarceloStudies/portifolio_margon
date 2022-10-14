@@ -42,6 +42,28 @@ $stmt = $conn->prepare($SQL);
 $stmt->execute();
 $result_educations = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
+// Experience 
+
+$SQL = "SELECT
+    PE.name,
+    PE.date_process,
+    PE.locale,
+    PRE.description
+FROM
+    `professional_experience` PE,
+    `task_professional_experience` PRE
+WHERE
+    PE.id = PRE.id_professional_experience
+    GROUP BY PRE.description ";
+$stmt = $conn->prepare($SQL);
+while ($stmt->execute()) {
+  $data_experiences = $stmt->fetchAll();
+}
+
+var_dump($data_experiences);
+
 ?>
 
 

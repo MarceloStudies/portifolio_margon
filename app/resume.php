@@ -3,7 +3,7 @@ include '../includes/config.php';
 
 
 $countClass = 1;
-
+$countClass2 = 1; 
 try{
   $SQL = "SELECT * FROM professional_experience ";
   $stmt = $conn->prepare($SQL);
@@ -16,7 +16,6 @@ try{
 
 }
 
-var_dump($arrayAreas);
 
 ?>
 <!DOCTYPE html>
@@ -121,9 +120,9 @@ var_dump($arrayAreas);
                 </div>
                 <div class="card-body">
                   
-                  <input type="hidden" id="countClass" name="countClass" value="<?php echo $countClass; ?>" required>
+                  <input type="hidden" id="countClass2" name="countClass2" value="<?php echo $countClass2; ?>" required>
                   
-                  <div class="row" id="contentClass0">
+                  <div class="row" >
                     <div class="col-12">
                       <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Experience. </label>
@@ -140,21 +139,24 @@ var_dump($arrayAreas);
                     </div>
 
                     
-                    <div class="col-md-8">
+                    <div class="col-md-8" id="contentClass0">
                       <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Description</label>
-                        <textarea id="descriptions0" class="form-control" name="descriptions[]" aria-label=" " data-index="0"></textarea>
+                        <textarea id="descriptionsArray0" class="form-control" name="descriptionsArray[]" aria-label=" " data-index="0"></textarea>
+                        <textarea id="descriptionsArray0" class="form-control" name="descriptionsArray[]" aria-label=" " data-index="0"></textarea>
                       </div>
+                      <!--<div class="contentIncrement2"></div>
+                      -->
                     </div>
-                    
+                    <!--
                     <div class="col-md-2 mt-4">
                       <div class="form-group">
                         <button type="button" class="btn btn-success add2">+</button>
                       </div>
                     </div>
                   </div>
+                  -->
                   
-                  <div class="contentIncrement2"></div>
                   
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>

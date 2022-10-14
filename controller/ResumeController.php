@@ -75,19 +75,16 @@ if ($action == "salvar2") {
     // Vars
 
     $idArea             = $_POST['slcExperience'];
-    $description        = $_POST['descriptions'];
-    $countClass         = $_POST['countClass'];
+    $description        = $_POST['descriptionsArray'];
+    $countClass         = 2;
 
-    echo $countClass;
 
-    var_dump($description);
 
 
     for ($k = 0; $k < $countClass; $k++) {
 
         $descriptions       = $description[$k];
-        echo $descriptions;
-        die();
+
 
 
         try {
@@ -98,8 +95,9 @@ if ($action == "salvar2") {
 
 
             if ($stmt->execute()) {
-                header("Location: ../app/resume.php");
+                echo "<script>alert('Cadastrado com sucesso!');window.location='../app/resume.php'</script>";
             } else {
+           
                 throw new PDOException("Erro: Não foi possível executar a declaração sql");
             }
         } catch (PDOException $erro) {
@@ -125,6 +123,7 @@ if ($action == "salvarArea") {
         $stmt->bindParam(3, $locale);
 
         if ($stmt->execute()) {
+            echo '1';
         } else {
             throw new PDOException("Erro: Não foi possível executar a declaração sql");
         }

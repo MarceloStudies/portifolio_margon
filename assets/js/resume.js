@@ -48,31 +48,22 @@ $(document).ready(function () {
     });
   
     $(".add2").on("click", function () {
-      var countClass = $("#countClass").val();
+      var countClass = $("#countClass2").val();
       var content = $(".contentIncrement2");
       var html = "";
       countClass = parseInt(countClass);
       var count = countClass;
   
-    html+='  <div class="row" id="contentClass0">';
-    html+='  <div class="col-md-8">';
-    html+='    <div class="form-group">';
-    html+='      <label for="example-text-input" class="form-control-label"></label>';
-    html+='      <textarea id="descriptions' + count + '" class="form-control" name="descriptions[]" aria-label=" " data-index="' + count + '"></textarea>';
-    html+='    </div>';
-    html+='  </div>';
-    html+='  <div class="col-md-2 mt-4">';
-    html+='    <div class="form-group">';
-    html+='      <button type="button" class="btn btn-success add2">+</button>';
-    html+='      <button type="button" class="btn btn-danger remove">-</button>';
-    html+='    </div>';
-    html+='  </div>';
-    html+='</div>';
+
+    html+='      <textarea id="descriptionsArray' + count + '" class="form-control" name="descriptionsArray[]" aria-label=" " data-index="' + count + '"></textarea>';
+
   
       content.append(html);
   
       count = countClass + 1;
-      $("#countClass").val(count);
+      $("#countClass2").val(count);
+
+      console.log(count);
     });
   
     $('.remove').on('click', function () {
@@ -121,12 +112,18 @@ $(document).ready(function () {
                         var data_process = document.getElementById('data').value;
                         var locale = document.getElementById('locale').value;
 
+
+                        console.log(name);
+                        console.log(data_process);
+                        console.log(locale);
                      
                         $.ajax({
                             url: '../controller/ResumeController.php?action=salvarArea',
                             type: 'POST',
                             data: 'name=' + name + '&data_process=' + data_process + '&locale=' + locale,
                         }).done(function (data) {
+                          console.log(data);
+                         
                             if (data == 1) {
                                 bootbox.alert('Area added successfully!');
                                 location.reload();
