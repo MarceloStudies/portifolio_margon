@@ -40,6 +40,18 @@
             </div>
             <span class="nav-link-text ms-1">Resume</span>
           </a>
+          <a class="nav-link " href="../app/profile.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Profile</span>
+          </a>
+          <a class="nav-link " href="../app/project.php">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Projects</span>
+          </a>
         </li>
 
         

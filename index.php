@@ -46,41 +46,66 @@ $result_educations = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Experience 
 
-$SQL = "SELECT
-    PE.name,
-    PE.date_process,
-    PE.locale,
-    PRE.description
-FROM
-    `professional_experience` PE,
-    `task_professional_experience` PRE
-WHERE
-    PE.id = PRE.id_professional_experience
-    GROUP BY PRE.description ";
-$stmt = $conn->prepare($SQL);
-while ($stmt->execute()) {
+$SQL  = "SELECT PE.id, PE.name, PE.date_process, PE.locale FROM `professional_experience` PE";
+try {
+  $stmt = $conn->prepare($SQL);
+  $stmt->execute();
   $data_experiences = $stmt->fetchAll();
+} catch (PDOException $e) {
+  echo $e->getMessage();
 }
 
-var_dump($data_experiences);
+
+$SQL = "SELECT  TPE.id_professional_experience,TPE.description FROM `task_professional_experience` TPE INNER JOIN `professional_experience` PE ON TPE.id_professional_experience = PE.id ORDER BY TPE.id DESC";
+try {
+  $stmt = $conn->prepare($SQL);
+  $stmt->execute();
+  $data_task_experiences = $stmt->fetchAll();
+} catch (PDOException $e) {
+  echo $e->getMessage();
+}
+
+$all_experiences = array();
+//PUSH with data_experience and data_task_experience in all_experiences
+foreach ($data_experiences as $key => $value) {
+  $all_experiences[] = array(
+    'id' => $value['id'],
+    'name' => $value['name'],
+    'date_process' => $value['date_process'],
+    'locale' => $value['locale'],
+    'description' => array()
+  );
+
+
+
+  foreach ($data_task_experiences as $key2 => $value2) {
+    if ($value['id'] == $value2['id_professional_experience']) {
+      $all_experiences[$key]['description'][] = $value2['description'];
+    }
+  }
+}
+
+
+
+
 
 ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Personal Bootstrap Template</title>
+  <title>Marcelo Gonçalves</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/logoicon.png" rel="icon">
+  <link href="assets/img/logoicon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -119,11 +144,11 @@ var_dump($data_experiences);
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link active" href="#header">Home</a></li>
-          <li><a class="nav-link" href="#about">About</a></li>
-          <li><a class="nav-link" href="#resume">Resume</a></li>
-          <li><a class="nav-link" href="#services">Services</a></li>
+          <li><a class="nav-link" href="#about">Sobre</a></li>
+          <li><a class="nav-link" href="#resume">Currículo</a></li>
+          <li><a class="nav-link" href="#services">Projetos</a></li>
           <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link" href="#contact">Contact</a></li>
+          <li><a class="nav-link" href="#contact">Contato</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -174,9 +199,9 @@ var_dump($data_experiences);
             </div>
             <div class="col-lg-6">
               <ul>
-                <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span><?= $data["age"] ?></span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span><?= $data["degree"] ?></span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>PhEmailone:</strong> <span><?= $data["email"] ?></span></li>
+                <li><i class="bi bi-chevron-right"></i> <strong>Idade:</strong> <span><?= $data["age"] ?></span></li>
+                <!--<li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span><?= $data["degree"] ?></span></li>-->
+                <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span><?= $data["email"] ?></span></li>
                 <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span><?= $freelance ?></span></li>
               </ul>
             </div>
@@ -434,37 +459,24 @@ var_dump($data_experiences);
           <?php } ?>
         </div>
         <div class="col-lg-6">
-          <h3 class="resume-title">Professional Experience</h3>
-          <div class="resume-item">
-            <h4>Senior graphic design specialist</h4>
-            <h5>2019 - Present</h5>
-            <p><em>Experion, New York, NY </em></p>
-            <p>
-            <ul>
-              <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-              <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
-              <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-              <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
-            </ul>
-            </p>
-          </div>
-          <div class="resume-item">
-            <h4>Graphic design specialist</h4>
-            <h5>2017 - 2018</h5>
-            <p><em>Stepping Stone Advertising, New York, NY</em></p>
-            <p>
-            <ul>
-              <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-              <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-              <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-              <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
-            </ul>
-            </p>
-          </div>
-        </div>
-      </div>
+          <h3 class="resume-title">Experiêcia Profissional</h3>
+          <?php for($i=0 ; $i< count($all_experiences); $i++) { ?>
+            <div class="resume-item">
+              <h4><?= $all_experiences[$i]["name"] ?></h4>
+              <h5><?= $all_experiences[$i]["date_process"] ?></h5>
+              <p><em><?= $all_experiences[$i]["locale"] ?></em></p>
+              <p>
+              <ul>
+                <?php for($j=0; $j < count($all_experiences[$i]['description']);$j++){ ?>
+                  <li><?= $all_experiences[$i]['description'][$j] ?></li>
+                <?php } ?>
+              </ul>
+              </p>
+            </div>
+          <?php } ?>
 
-    </div>
+
+        </div>
   </section><!-- End Resume Section -->
 
   <!-- ======= Services Section ======= -->
@@ -472,61 +484,19 @@ var_dump($data_experiences);
     <div class="container">
 
       <div class="section-title">
-        <h2>Services</h2>
-        <p>My Services</p>
+        <h2>Projetos</h2>
+        <p>Meus Projetos</p>
       </div>
 
       <div class="row">
 
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+      <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 ">
           <div class="icon-box">
             <div class="icon"><button type="button" class="btn btn-icon" data-toggle="modal" data-target="#exampleModal"><i class="bx bxl-dribbble"></button></i></div>
             <h4><a href="">Lorem Ipsum</a></h4>
             <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
           </div>
         </div>
-
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-file"></i></div>
-            <h4><a href="">Sed ut perspiciatis</a></h4>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-tachometer"></i></div>
-            <h4><a href="">Magni Dolores</a></h4>
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-world"></i></div>
-            <h4><a href="">Nemo Enim</a></h4>
-            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-slideshow"></i></div>
-            <h4><a href="">Dele cardo</a></h4>
-            <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-arch"></i></div>
-
-            <h4>Divera don </button></a></h4>
-            <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
-          </div>
-        </div>
-
       </div>
 
 
